@@ -1,0 +1,2 @@
+#event_simpleName=InstalledBrowserExtension BrowserExtensionId!="no-extension-available"
+| groupBy([event_platform, BrowserName, BrowserExtensionId, BrowserExtensionName], function=([count(aid, distinct=true, as=TotalEndpoints)]))
