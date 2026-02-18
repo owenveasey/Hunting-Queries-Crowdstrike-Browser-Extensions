@@ -1,0 +1,5 @@
+// Get browser extension event
+#event_simpleName=InstalledBrowserExtension BrowserExtensionId!="no-extension-available"
+// Aggregate by BrowserName
+| groupBy([BrowserExtensionName], function=([count(aid, distinct=true, as=TotalEndpoints)]))
+| sort(TotalEndpoints, order=desc)
