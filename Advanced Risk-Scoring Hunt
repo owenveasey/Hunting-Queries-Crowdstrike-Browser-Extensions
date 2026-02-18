@@ -1,0 +1,17 @@
+#event_simpleName=InstalledBrowserExtension
+| BrowserExtensionId != "no-extension-available"
+// 1. Filter for High-Risk Keywords OR Extensions with broad permissions
+| (BrowserExtensionName=/.*(Coupon|Video|Download|VPN|Proxy|AdBlock|CrashFix|Update|Access).*/i
+   OR BrowserExtensionPermissions=/(all_urls|cookies|management|webRequest|declarativeNetRequest|tabs|storage|clipboardRead)/i)
+| join(
+    { #event_simpleName=InstalledBrowserExtension
+      | groupBy([BrowserExtensionId], function=([count(aid, distinct=true, as=TotalEndpoints)]))
+      | TotalEndpoints < 3 },
+    field=BrowserExtensionId,
+    key=BrowserExtensionId,
+    include=[TotalEndpoints],
+    mode=inner
+)
+| ExtensionStatus := if(condition=TotalEndpoints < 2, then="High Risk/Rare", else="Common")
+| select([@timestamp, ComputerName, UserName, BrowserExtensionName, BrowserExtensionId, TotalEndpoints, ExtensionStatus])
+| sort(@timestamp, order=desc)
