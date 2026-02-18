@@ -1,0 +1,2 @@
+event_simpleName=FileCreate OR event_simpleName=FileRename OR event_simpleName=FileUpdate
+| filePath=/.*(INSERT EXTENSION ID's).*/
