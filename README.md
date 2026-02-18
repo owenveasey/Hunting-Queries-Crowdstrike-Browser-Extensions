@@ -5,9 +5,6 @@ This repository contains a specialized **CrowdStrike Advanced Event Search (AES)
 
 These extensions, often disguised as "Emoji Keyboards," "Weather Forecasts," or "Productivity Tools," have been identified as high-risk for credential theft, browser hijacking, and unauthorized data exfiltration.
 
-## Threat Intel Context
-This hunt targets 18+ specific Extension IDs (IOCs) that have been flagged by the security community (including researchers from CrowdStrike, Malwarebytes, and CISA) as "Sleeper Agents." These plugins often remain benign for months before receiving a malicious update.
-
 ### **Detection Strategy**
 Unlike standard inventory searches, this query focuses on **File System Telemetry** (`FileCreate`, `FileUpdate`, `FileRename`). This ensures that even if the browser isn't currently running, the presence of the malicious assets on the disk is flagged.
 
